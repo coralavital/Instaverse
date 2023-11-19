@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import StoryList from "../StoryList";
 import StoryForm from "../StoryForm";
@@ -9,6 +9,7 @@ import { getStories } from '../../actions/stories'
 const { Sider, Content } = Layout;
 
 const Home = () => {
+    const [selectedId, setSelecetedId] = useState(null);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -18,10 +19,10 @@ const Home = () => {
     return(
         <Layout>
             <Sider style={styles.sider} width={400}>
-                <StoryForm />
+                <StoryForm selectedId={selectedId} setSelecetedId={setSelecetedId}/>
             </Sider>
             <Content style={styles.content}>
-                <StoryList />
+                <StoryList setSelecetedId={setSelecetedId}/>
             </Content>
         </Layout>
     )

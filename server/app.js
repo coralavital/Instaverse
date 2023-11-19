@@ -3,16 +3,22 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import storyRoutes from './routes/stories.js';
+import userRoutes from './routes/users.js';
+import dotenv from 'dotenv';
 
 const app = express();
+dotenv.config();
 
 app.use(bodyParser.json( { limit: '32mb', extended: true }));
 app.use(bodyParser.urlencoded( { limit: '32mb', extended: true }));
 app.use(cors());
-app.use('/stories', storyRoutes);
 
-const MONGOURI = "mongodb+srv://instaverse:1902@cluster0.ss7wxuf.mongodb.net/?retryWrites=true&w=majority";
-const PORT = process.env.PORT || 5001;
+app.use('/stories', storyRoutes);
+app.use('/user', userRoutes);
+
+const MONGOURI = process.env.MONGO_URI;
+const PORT = process.env.PORT;
+
 
 const connectDB = async () => {
     try {
